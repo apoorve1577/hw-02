@@ -19,6 +19,8 @@
         <activity
             android:name=".WeightSet"
             android:exported="false" />
+        <activity android:name=".ViewDrinksActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

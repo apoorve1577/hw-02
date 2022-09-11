@@ -1,5 +1,6 @@
 package com.example.hw2;
 
+import androidx.annotation.LongDef;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,26 +20,24 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
     ArrayList<Drink> allDrinks = new ArrayList<>();
     int currentIndex = 0;
 
+    public static String ALL_DRINKS = "allDrinks";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_view_drinks);
 
 
+        if(getIntent() != null){
+            allDrinks = (ArrayList<Drink>)getIntent().getSerializableExtra("DrinkList");
+            Log.d("demo", "Intent" + getIntent() + "");
+        }
 
-        Drink a = new Drink(1, 30, new Date(2022, 7, 13, 4, 22));
-        Drink b = new Drink(5, 25, new Date(2022, 7, 13, 5, 1));
-        Drink c = new Drink(12, 15, new Date(2022, 7, 13, 19, 22));
 
-
-        allDrinks.add(a);
-        allDrinks.add(b);
-        allDrinks.add(c);
 
 
         setView(currentIndex);
-
-
         ImageButton backBtn = findViewById(R.id.backBtn);
         ImageButton nextBtn = findViewById(R.id.nextBtn);
         ImageButton deleteBtn = findViewById(R.id.deleteBtn);
@@ -48,10 +47,6 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
         nextBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
         closeBtn.setOnClickListener(this);
-
-
-
-
     }
 
     @Override
@@ -89,9 +84,9 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
                 Log.d("currentIndex", "new Index after delete" + currentIndex);
 
                 if(allDrinks.size() == 0) {
-                    Intent i = new Intent(ViewDrinksActivity.this, MainActivity.class);
-                    i.putExtra("allDrinks", 0);
-                    startActivity(i);
+                    Intent intent = new Intent(ViewDrinksActivity.this, MainActivity.class);
+                    intent.putExtra("allDrinks", allDrinks.size());
+                    setResult(RESULT_CANCELED, intent);
                 }
                 if(currentIndex < 0) {
                     currentIndex = allDrinks.size();
@@ -102,6 +97,10 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
                 setView(currentIndex);
                 break;
             case R.id.closeBtn:
+                Intent intent = new Intent(ViewDrinksActivity.this, MainActivity.class);
+                intent.putExtra("allDrinks", allDrinks);
+                setResult(RESULT_OK, intent);
+                break;
 
         }
     }

@@ -1,6 +1,7 @@
 package com.example.hw2;
 
 import static com.example.hw2.AddDrink.DRINK_KEY;
+import static com.example.hw2.ViewDrinksActivity.ALL_DRINKS;
 import static com.example.hw2.WeightSet.USER_KEY;
 
 import androidx.annotation.Nullable;
@@ -15,19 +16,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
    public User user ;
    public Drink drink ;
-   public ArrayList<Drink> drinkList = new ArrayList<>();
+   public ArrayList<Drink> allDrinks = new ArrayList<>();
    public String TAG = "demo";
    public static double genderValue = 0.0 ;
    public static int weightPerson = 0;
 
    public static int REQ_CODE_WEIGHT = 100;
    public static int REQ_CODE_DRINK = 101;
+   public static int REQ_CODE_VIEW = 102;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -76,13 +80,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(resultCode == RESULT_OK) {
                 if (data != null && data.getExtras() != null && data.hasExtra(DRINK_KEY)) {
                     drink = (Drink) data.getSerializableExtra(DRINK_KEY);
-                    drinkList.add(drink);
+                    allDrinks.add(drink);
                     TextView updateDrink = findViewById(R.id.drinkNumber);
-                    updateDrink.setText(drinkList.size() + "");
+                    updateDrink.setText(allDrinks.size() + "");
                     updateBAC();
                 }
             }
         }
+
+        if(requestCode == REQ_CODE_VIEW){
+            if(resultCode == RESULT_CANCELED){
+                allDrinks.clear();
+            }
+            else if(requestCode == RESULT_OK){
+                if (data != null && data.getExtras() != null && data.hasExtra(ALL_DRINKS)){
+
+                   data.hasExtra(ALL_DRINKS);
+                }
+            }
+        }
+
     }
 
     @Override
@@ -98,13 +115,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(view.getId() == R.id.viewDrinks){
-            for(Drink drink : drinkList){
-                Log.d(TAG, drink.size + " oz  " + drink.percent + "% " + drink.createDatetime );
-            }
+            Intent intent = new Intent(MainActivity.this, ViewDrinksActivity.class);
+//            Bundle args = new Bundle();
+//            args.putSerializable("ArrayList", (Serializable)allDrinks);
+//            intent.putExtra("DrinkList",args);
+//            startActivityForResult(intent,REQ_CODE_VIEW);
+              intent.putExtra("DrinkList",allDrinks);
+              startActivityForResult(intent,REQ_CODE_VIEW);
         }
 
         if(view.getId() == R.id.reset){
-            drinkList.clear();
+            allDrinks.clear();
             TextView resetWeight = findViewById(R.id.weight);
             TextView resetDrink = findViewById(R.id.drinkNumber);
             TextView resetBAC = findViewById(R.id.bacValue);
@@ -127,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Double a= 0.0;
         int dp=0;
-        for(Drink drink : drinkList){
+        for(Drink drink : allDrinks){
            dp+= drink.percent*drink.size ;
         }
         a = Double.valueOf(dp/100);
