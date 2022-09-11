@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">HW2</string>
     <string name="def_weight">N/A</string>
+    <string name="def_status">You are safe</string>
+    <string name="enter_weight">Enter Weight</string>
+    <string name="def_drink_number">0</string>
+    <string name="def_bac_value">0.000</string>
 </resources>

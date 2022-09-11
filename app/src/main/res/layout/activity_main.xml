@@ -6,39 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/addDrink"
+        android:layout_width="133dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="16dp"
+        android:text="Add Drink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewDrinks" />
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="133dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:text="Reset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addDrink" />
+
     <TextView
+        android:id="@+id/weightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:text="Weight :"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weight :"
-        tools:layout_editor_absoluteX="31dp"
-        tools:layout_editor_absoluteY="37dp" />
-
-    <TextView
-        android:id="@+id/weightSet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
         android:text="@string/def_weight"
         app:layout_constraintEnd_toStartOf="@+id/set"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        tools:layout_editor_absoluteY="37dp" />
+        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintStart_toEndOf="@+id/weightText"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/set"
+        android:layout_width="131dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="16dp"
+        android:text="Set"
+        app:layout_constraintStart_toEndOf="@+id/weightText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/drinks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set"
-        tools:layout_editor_absoluteX="226dp"
-        tools:layout_editor_absoluteY="21dp" />
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="52dp"
+        android:text="# Drinks :"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weightText" />
+
+    <TextView
+        android:id="@+id/drinkNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/def_drink_number"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/drinks"
+        app:layout_constraintTop_toBottomOf="@+id/set" />
+
+    <TextView
+        android:id="@+id/bac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="32dp"
+        android:text="BAC Level :"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/drinks" />
+
+    <TextView
+        android:id="@+id/bacValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/def_bac_value"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/bac"
+        app:layout_constraintTop_toBottomOf="@+id/drinkNumber" />
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="32dp"
+        android:text="Your Status :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bac" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:background="#00FF00"
+        android:text="@string/def_status"
+        app:layout_constraintStart_toEndOf="@+id/statusText"
+        app:layout_constraintTop_toBottomOf="@+id/bacValue" />
+
+    <Button
+        android:id="@+id/viewDrinks"
+        android:layout_width="133dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="24dp"
+        android:text="View Drinks"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

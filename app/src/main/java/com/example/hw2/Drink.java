@@ -1,8 +1,9 @@
 package com.example.hw2;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Drink {
+public class Drink implements Serializable {
 
     int size;
     int percent;
@@ -13,4 +14,12 @@ public class Drink {
         this.percent = percent;
         this.createDatetime = createDatetime;
     }
+
+    public Drink(){
+
+    }
+
+
+
+
 }
