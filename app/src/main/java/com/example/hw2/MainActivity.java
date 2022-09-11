@@ -93,9 +93,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 allDrinks.clear();
             }
             else if(requestCode == RESULT_OK){
-                if (data != null && data.getExtras() != null && data.hasExtra(ALL_DRINKS)){
-
-                   data.hasExtra(ALL_DRINKS);
+                if (getIntent().getSerializableExtra("DrinkList")!=null){
+                    allDrinks = (ArrayList<Drink>)getIntent().getSerializableExtra("DrinkList");
+                    Log.d(TAG, "onActivityResult: hello " + allDrinks);
                 }
             }
         }

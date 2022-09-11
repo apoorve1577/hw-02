@@ -98,8 +98,9 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.closeBtn:
                 Intent intent = new Intent(ViewDrinksActivity.this, MainActivity.class);
-                intent.putExtra("allDrinks", allDrinks);
+                intent.putExtra("DrinkList",allDrinks);
                 setResult(RESULT_OK, intent);
+                finish();
                 break;
 
         }
