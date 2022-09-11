@@ -71,7 +71,7 @@ public class AddDrink extends AppCompatActivity implements View.OnClickListener{
             Intent intent = new Intent(AddDrink.this, MainActivity.class);
             intent.putExtra(DRINK_KEY, new Drink(drinkSize, alcoholPercent, new Date()));
             setResult(RESULT_OK,intent);
-            startActivity(intent);
+            finish();
         }
 
         if(view.getId() == R.id.cancel){

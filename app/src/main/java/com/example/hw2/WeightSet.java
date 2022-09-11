@@ -47,6 +47,7 @@ public class WeightSet extends AppCompatActivity implements View.OnClickListener
             intent.putExtra(USER_KEY, new User(gender,weight));
             Log.d("demo","This is weight set" + weight + "");
             setResult(RESULT_OK,intent);
+            finish();
         }
 
         if(view.getId() == R.id.cancel){

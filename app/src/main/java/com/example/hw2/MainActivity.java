@@ -42,11 +42,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQ_CODE_WEIGHT){
 
+        Log.d(TAG, "onActivityResult: " + USER_KEY + " req code " + requestCode);
+        if(requestCode == REQ_CODE_WEIGHT){
+            Log.d(TAG, "onActivityResult: " + USER_KEY );
             if(resultCode == RESULT_OK){
                 if(data!=null && data.getExtras() !=null && data.hasExtra(USER_KEY)){
+                    Button add = findViewById(R.id.addDrink);
+                    Button view = findViewById(R.id.viewDrinks);
+                    view.setEnabled(true);
+                    add.setEnabled(true);
                     TextView drinkNumber, bacValue ;
                     user = (User)data.getSerializableExtra(USER_KEY);
                     if(user.gender.equals("female")){
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     drinkNumber.setText(R.string.def_drink_number);
                 }
             }
+            super.onActivityResult(requestCode, resultCode, data);
 
         }
         if(requestCode == REQ_CODE_DRINK){
@@ -83,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if(view.getId() == R.id.set){
             Intent intent = new Intent(MainActivity.this, WeightSet.class);
-            startActivityForResult(intent, REQ_CODE_DRINK);
+            startActivityForResult(intent, REQ_CODE_WEIGHT);
         }
 
         if(view.getId() == R.id.addDrink){
@@ -103,15 +109,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TextView resetDrink = findViewById(R.id.drinkNumber);
             TextView resetBAC = findViewById(R.id.bacValue);
             TextView resetStatus = findViewById(R.id.status);
-
             resetDrink.setText("0");
             resetBAC.setText("0.000");
             resetStatus.setText(R.string.def_status);
             resetStatus.setBackgroundColor(Color.rgb(0,255,0));
             resetWeight.setText(R.string.def_weight);
-            Button addDrink = findViewById(R.id.addDrink);
-            addDrink.setEnabled(true);
-
+            Button add = findViewById(R.id.addDrink);
+            Button views = findViewById(R.id.viewDrinks);
+            views.setEnabled(false);
+            add.setEnabled(false);
         }
 
 
@@ -125,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            dp+= drink.percent*drink.size ;
         }
         a = Double.valueOf(dp/100);
-        Log.d(TAG, weightPerson + " gender " + genderValue + " dp " + dp);
-        Double bac = (a*5.14) / (weightPerson*genderValue);
+        Log.d(TAG, weightPerson + " gender " + genderValue + " dp " + dp + "A " + a);
+        Double bac = (dp*5.14) / (weightPerson*genderValue*100);
         Log.d(TAG,  " bac " + bac);
         bac = Math.round(bac * 1000.0)/1000.0;
         String bacValue = String.valueOf(bac);

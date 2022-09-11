@@ -13,6 +13,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="16dp"
         android:text="Add Drink"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewDrinks" />
 
@@ -129,6 +130,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="24dp"
         android:text="View Drinks"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusText" />
 
