@@ -116,10 +116,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(view.getId() == R.id.viewDrinks){
             Intent intent = new Intent(MainActivity.this, ViewDrinksActivity.class);
-//            Bundle args = new Bundle();
-//            args.putSerializable("ArrayList", (Serializable)allDrinks);
-//            intent.putExtra("DrinkList",args);
-//            startActivityForResult(intent,REQ_CODE_VIEW);
               intent.putExtra("DrinkList",allDrinks);
               startActivityForResult(intent,REQ_CODE_VIEW);
         }
