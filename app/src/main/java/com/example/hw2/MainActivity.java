@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -71,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     bacValue = findViewById(R.id.bacValue);
                     bacValue.setText(R.string.def_bac_value);
                     drinkNumber.setText(R.string.def_drink_number);
+                    TextView status = findViewById(R.id.status);
+                    status.setText("You are safe");
+                    status.setBackgroundColor(Color.rgb(0,255,0));
                 }
             }
             super.onActivityResult(requestCode, resultCode, data);
@@ -89,14 +93,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(requestCode == REQ_CODE_VIEW){
-            if(resultCode == RESULT_CANCELED){
-                allDrinks.clear();
-            }
-            else if(requestCode == RESULT_OK){
-                if (getIntent().getSerializableExtra("DrinkList")!=null){
-                    allDrinks = (ArrayList<Drink>)getIntent().getSerializableExtra("DrinkList");
+            Log.d(TAG, "onActivityResult:  Is it working ???" + resultCode);
+            if(resultCode == RESULT_OK){
+                Log.d(TAG, "onActivityResult:  Is it working ??");
+                if (data.getSerializableExtra("DrinkListBack")!=null){
+                    allDrinks = (ArrayList<Drink>)data.getSerializableExtra("DrinkListBack");
+                    setView();
                     Log.d(TAG, "onActivityResult: hello " + allDrinks);
                 }
+            }
+            else{
+                allDrinks.clear();
+
             }
         }
 
@@ -115,9 +123,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if(view.getId() == R.id.viewDrinks){
-            Intent intent = new Intent(MainActivity.this, ViewDrinksActivity.class);
-              intent.putExtra("DrinkList",allDrinks);
-              startActivityForResult(intent,REQ_CODE_VIEW);
+            if(allDrinks.size() == 0) {
+                Toast.makeText(this, "User has no drinks", Toast.LENGTH_SHORT).show();
+            }
+
+            if(allDrinks.size() !=0) {
+                Intent intent = new Intent(MainActivity.this, ViewDrinksActivity.class);
+                intent.putExtra("DrinkList",allDrinks);
+                startActivityForResult(intent,REQ_CODE_VIEW);
+            }
+
         }
 
         if(view.getId() == R.id.reset){
@@ -159,21 +174,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    public void setView(){
+        updateBAC();
+        TextView updateDrinks = findViewById(R.id.drinkNumber);
+        updateDrinks.setText(allDrinks.size() +"");
+    }
+
     public void statusColor(Double bac){
         TextView status = findViewById(R.id.status);
+        Button addDrink = findViewById(R.id.addDrink);
         if(bac <= 0.08){
             status.setText("You are safe");
             status.setBackgroundColor(Color.rgb(0,255,0));
+            addDrink.setEnabled(true);
         }
         if(bac > 0.08 && bac<=0.2){
             status.setText("Be careful!");
             status.setBackgroundColor(Color.rgb(204,63,18));
+            addDrink.setEnabled(true);
         }
         if(bac > 0.2){
             status.setText("Over the limit");
             status.setBackgroundColor(Color.rgb(255,0,0));
-            Button addDrink = findViewById(R.id.addDrink);
             addDrink.setEnabled(false);
+            Toast.makeText(this, "No More Drinks for you", Toast.LENGTH_SHORT).show();
         }
 
 

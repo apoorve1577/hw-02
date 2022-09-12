@@ -11,13 +11,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ViewDrinksActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    ArrayList<Drink> allDrinks = new ArrayList<>();
+    public ArrayList<Drink> allDrinks = new ArrayList<>();
     int currentIndex = 0;
 
     public static String ALL_DRINKS = "allDrinks";
@@ -84,9 +87,12 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
                 Log.d("currentIndex", "new Index after delete" + currentIndex);
 
                 if(allDrinks.size() == 0) {
+
                     Intent intent = new Intent(ViewDrinksActivity.this, MainActivity.class);
-                    intent.putExtra("allDrinks", allDrinks.size());
-                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("DrinkListBack",allDrinks);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    break;
                 }
                 if(currentIndex < 0) {
                     currentIndex = allDrinks.size();
@@ -97,13 +103,18 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
                 setView(currentIndex);
                 break;
             case R.id.closeBtn:
-                Intent intent = new Intent(ViewDrinksActivity.this, MainActivity.class);
-                intent.putExtra("DrinkList",allDrinks);
-                setResult(RESULT_OK, intent);
-                finish();
+                callMain();
                 break;
 
         }
+    }
+
+
+    public void callMain(){
+        Intent intent = new Intent(ViewDrinksActivity.this, MainActivity.class);
+        intent.putExtra("DrinkListBack",allDrinks);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 
@@ -120,6 +131,8 @@ public class ViewDrinksActivity extends AppCompatActivity implements View.OnClic
 
 
         TextView addedDate = findViewById(R.id.addedTime);
-        addedDate.setText("Added " + allDrinks.get(currentIndex).createDatetime);
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
+
+        addedDate.setText("Added " + format.format(allDrinks.get(currentIndex).createDatetime));
     }
 }

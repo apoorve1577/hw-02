@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
         android:layout_marginTop="10dp"
+        android:checkedButton="@id/oz1"
         android:orientation='horizontal'
         app:layout_constraintStart_toEndOf="@+id/drinkSize"
         app:layout_constraintTop_toTopOf="parent">
@@ -72,9 +73,11 @@
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="30%"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
+        android:text="0%"
         app:layout_constraintStart_toEndOf="@+id/seekBar"
-        tools:layout_editor_absoluteY="108dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/drinkCancel"
